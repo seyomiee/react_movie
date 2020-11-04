@@ -1,10 +1,11 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {Component} from "react";
+import Router from "Components/Router";
 
-function App() {
-  return (
-   
-  );
+class All extends Component {
+  render() {
+    return <><Router> </>; 
+   }
+ 
 }
 
 export default App;
