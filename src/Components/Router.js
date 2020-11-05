@@ -4,8 +4,6 @@ import Home from "Routes/Home";
 
 export default () => {
     <Router>
-        <>
-            <Route path="/" component = {Home}/>
-        </>
+       
     </Router>
 }
