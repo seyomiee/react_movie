@@ -2,13 +2,16 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { Slide } from 'pure-react-carousel'
 
 const Container = styled.div`
   font-size: 12px;
+  margin-top: 30px;
 `;
 
 const Image = styled.div`
   background-image: url(${props => props.bgUrl});
+  width: 125px;
   height: 180px;
   background-size: cover;
   border-radius: 4px;
@@ -39,6 +42,7 @@ const ImageContainer = styled.div`
 
 const Title = styled.span`
   display: block;
+  font-size: 11px;
   margin-bottom: 3px;
 `;
 
@@ -47,7 +51,8 @@ const Year = styled.span`
   color: rgba(255, 255, 255, 0.5);
 `;
 
-const Poster = ({ id, imageUrl, title, rating, year, isMovie = false }) => (
+const Poster = ({ index, id, imageUrl, title, rating, year, isMovie = false }) => (
+  <Slide index={index}>
   <Link to={isMovie ? `/movie/${id}` : `/show/${id}`}>
     <Container>
       <ImageContainer>
@@ -72,6 +77,7 @@ const Poster = ({ id, imageUrl, title, rating, year, isMovie = false }) => (
       <Year>{year}</Year>
     </Container>
   </Link>
+  </Slide>
 );
 
 Poster.propTypes = {
