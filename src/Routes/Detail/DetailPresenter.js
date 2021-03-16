@@ -5,7 +5,7 @@ import Loader from "Components/Loader";
 import Message from "Components/Message";
 import { Helmet } from "react-helmet";
 import { Link, Route, Switch, withRouter } from "react-router-dom";
-import Productions from "Components/Production";
+import Production from "Components/Production";
 
 
 const Container = styled.div`
@@ -195,13 +195,13 @@ const Detail = ({ location, match, result, credit, loading, error }) => {
           <Switch>
             
             <Route path={`/movie/:id/production`} exact>
-              <Productions
+              <Production
                 companies={result.production_companies}
                 countries={result.production_countries}
               />
             </Route>
             <Route path={`/show/:id/production`} exact>
-              <Productions
+              <Production
                 companies={result.production_companies}
                 countries={result.production_countries}
               />
