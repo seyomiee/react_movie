@@ -20,6 +20,17 @@ const List = styled.ul`
 
 `;
 
+const Title= styled(Link)`
+    height: 50px;
+    color: #f0932b;
+    font-weight: 600;
+    margin-right: 20px;
+    margin-left: 5px;
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    `
+
 const Item = styled.li`
     width: 50px;
     height: 50px;
@@ -37,6 +48,7 @@ const SLink = styled(Link)`
 
 export default withRouter ( ({location: { pathname }}) => (
     <Header>
+        <Title to="/">HELLOWORLD</Title>
         <List>
             <Item current={pathname==="/"}>
                 <SLink to="/">Movies</SLink>
