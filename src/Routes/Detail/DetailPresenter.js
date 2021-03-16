@@ -5,7 +5,7 @@ import Loader from "Components/Loader";
 import Message from "Components/Message";
 import { Helmet } from "react-helmet";
 import { Link, Route, Switch, withRouter } from "react-router-dom";
-import Productions from "Components/Productions";
+import Productions from "Components/Production";
 
 
 const Container = styled.div`
