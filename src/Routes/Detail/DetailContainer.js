@@ -2,26 +2,28 @@ import React from "react";
 import DetailPresenter from "./DetailPresenter";
 import { moviesApi, tvApi } from "../../api";
 
-export default class extends React.Component {
+export default class DetailContainer extends React.Component {
   constructor(props) {
     super(props);
     const {
-      location: { pathname }
+      location: { pathname },
     } = props;
+
     this.state = {
       result: null,
+      credit: null,
       error: null,
       loading: true,
-      isMovie: pathname.includes("/movie/")
+      isMovie: pathname.includes("/movie/"),
     };
   }
 
   async componentDidMount() {
     const {
       match: {
-        params: { id }
+        params: { id },
       },
-      history: { push }
+      history: { push },
     } = this.props;
     const { isMovie } = this.state;
     const parsedId = parseInt(id);
@@ -29,21 +31,36 @@ export default class extends React.Component {
       return push("/");
     }
     let result = null;
+    let credit = null;
+
     try {
       if (isMovie) {
-        ({ data: result } = await moviesApi.movieDetail(parsedId));
+        const { data } = await moviesApi.movieDetail(parsedId);
+        const { data: creditData } = await moviesApi.credits(parsedId);
+        result = data;
+        credit = creditData;
       } else {
-        ({ data: result } = await tvApi.showDetail(parsedId));
+        const { data } = await tvApi.showDetail(parsedId);
+        const { data: creditData } = await tvApi.credits(parsedId);
+        result = data;
+        credit = creditData;
       }
     } catch {
       this.setState({ error: "Can't find anything." });
     } finally {
-      this.setState({ loading: false, result });
+      this.setState({ loading: false, result, credit });
     }
   }
 
   render() {
-    const { result, error, loading } = this.state;
-    return <DetailPresenter result={result} error={error} loading={loading} />;
+    const { result, error, loading, credit } = this.state;
+    return (
+      <DetailPresenter
+        result={result}
+        error={error}
+        loading={loading}
+        credit={credit}
+      />
+    );
   }
 }

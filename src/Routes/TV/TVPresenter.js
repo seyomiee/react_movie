@@ -6,9 +6,12 @@ import Section from "../../Components/Section";
 import Loader from "../../Components/Loader";
 import Message from "../../Components/Message";
 import Poster from "../../Components/Poster";
+import NowPlaying from "Components/NowPlaying";
+
 
 const Container = styled.div`
-  padding: 20px;
+  padding: 0 10px;
+  padding-top: 20px;
 `;
 
 const TVPresenter = ({ topRated, popular, airingToday, loading, error }) => (
@@ -20,49 +23,43 @@ const TVPresenter = ({ topRated, popular, airingToday, loading, error }) => (
       <Loader />
     ) : (
       <Container>
-        {topRated && topRated.length > 0 && (
-          <Section title="Top Rated Shows">
-            {topRated.map(show => (
-              <Poster
-                key={show.id}
-                id={show.id}
-                imageUrl={show.poster_path}
-                title={show.original_name}
-                rating={show.vote_average}
-                year={show.first_air_date.substring(0, 4)}
-              />
-            ))}
-          </Section>
+      {airingToday && airingToday.length > 0 && (
+          <NowPlaying data={airingToday} isMovie={false} />
         )}
+
         {popular && popular.length > 0 && (
-          <Section title="Popular Shows">
-            {popular.map(show => (
+          <Section title='Popular Shows' hover={true}>
+            {popular.map((show, index) => (
               <Poster
+                index={index}
                 key={show.id}
                 id={show.id}
-                imageUrl={show.poster_path}
+                year={show.first_air_date && show.first_air_date.split('-')[0]}
                 title={show.original_name}
                 rating={show.vote_average}
-                year={show.first_air_date.substring(0, 4)}
+                imageUrl={show.poster_path}
               />
             ))}
           </Section>
         )}
-        {airingToday && airingToday.length > 0 && (
-          <Section title="Airing Today">
-            {airingToday.map(show => (
+
+        {topRated && topRated.length > 0 && (
+          <Section title='Top Rated Shows'>
+            {topRated.map((show, index) => (
               <Poster
+                index={index}
                 key={show.id}
                 id={show.id}
-                imageUrl={show.poster_path}
+                year={show.first_air_date && show.first_air_date.split('-')[0]}
                 title={show.original_name}
                 rating={show.vote_average}
-                year={show.first_air_date.substring(0, 4)}
+                imageUrl={show.poster_path}
               />
             ))}
           </Section>
         )}
-        {error && <Message color="#e74c3c" text={error} />}
+
+        {error && <Message text={error} color='#e74c3c' />}
       </Container>
     )}
   </>
